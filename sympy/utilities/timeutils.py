@@ -1,7 +1,7 @@
 """Simple tools for timing functions' execution, when IPython is not available. """
 
 
-import timeit
+
 import math
 
 
@@ -11,6 +11,7 @@ _units = ['s', 'ms', '\N{GREEK SMALL LETTER MU}s', 'ns']
 
 def timed(func, setup="pass", limit=None):
     """Adaptively measure execution time of a function. """
+    import timeit
     timer = timeit.Timer(func, setup=setup)
     repeat, number = 3, 1
 
