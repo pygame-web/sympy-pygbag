@@ -1,13 +1,8 @@
-import sys
-if sys.platform in ('emscripten','wasi'):
-    print(__file__,"#FIXME threading.local overload")
-    class local:
-        pass
-else:
-    from threading import local
-
 from contextlib import contextmanager
+from threading import local
+
 from sympy.core.function import expand_mul
+
 
 class DotProdSimpState(local):
     def __init__(self):

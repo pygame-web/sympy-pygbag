@@ -15,7 +15,7 @@ See the webpage for more information and documentation:
 import sys
 if sys.version_info < (3, 8):
     raise ImportError("Python version 3.8 or above is required for SymPy.")
-del sys
+#del sys
 
 
 try:
@@ -245,8 +245,13 @@ from .printing import (pager_print, pretty, pretty_print, pprint,
         print_tree, StrPrinter, sstr, sstrrepr, TableForm, dotprint,
         maple_code, print_maple_code)
 
-test = lazy_function('sympy.testing.runtests_pytest', 'test')
-doctest = lazy_function('sympy.testing.runtests', 'doctest')
+if sys.platform in ('emscripten','wasi'):
+    def test(*argv, **kw):
+        print(__file__,"STUB",argv,kw)
+    doctest = test
+else:
+    test = lazy_function('sympy.testing.runtests_pytest', 'test')
+    doctest = lazy_function('sympy.testing.runtests', 'doctest')
 
 # This module causes conflicts with other modules:
 # from .stats import *
